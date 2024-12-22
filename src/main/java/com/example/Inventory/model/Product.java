@@ -26,7 +26,7 @@ public class Product {
     private String name;
 
     @NotNull
-    private Integer quantity;
+    private Integer quantity = 0;
 
     @NotNull
     private Double price;
