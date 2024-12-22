@@ -1,7 +1,6 @@
 package com.example.Inventory.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +28,10 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
-    public Product listProductByName(String nameProduct){
-        return this.listProductByName(nameProduct);
+    public Product findProductByName(String nameProduct){
+        Product product = this.productRepository.findProductByName(nameProduct)
+                               .orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
+        return product;
     }
 
     public Product updateProduct(Long idProduct, Product product){
@@ -47,5 +48,7 @@ public class ProductService {
         this.productRepository.deleteById(idProduct);
         return "Product was deleted with successfully";
     }
+
+    
 
 }
