@@ -107,10 +107,10 @@ public class ProductService {
         return this.productRepository.save(returnedProduct);
     }
 
-    public String deleteProduct(Long idProduct){
+    public Message deleteProduct(Long idProduct){
         this.productRepository.deleteById(idProduct);
         Message message = new Message("Product was deleted with successfully");
-        return message.getContent();
+        return message;
     }
 
     public boolean missingProduct(Product product){
