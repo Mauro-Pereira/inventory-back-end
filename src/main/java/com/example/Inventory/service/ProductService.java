@@ -2,6 +2,7 @@ package com.example.Inventory.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +26,7 @@ public class ProductService {
                 throw new ProductAlreadyExistsException("Product already exists");
             });
 
-        if(product.getQuantity() < 0){
-
-            throw new ProductCanNotBeLessThanZeroException("The quantity of the product can not be less than zero!");
-        }
-
-        
-        if(product.getPrice() < 0){
-
-            throw new ProductCanNotBeLessThanZeroException("The price of the product can not be less than zero!");
-        }
+        validateProductFields(product);
 
 
         return this.productRepository.save(product);
@@ -79,16 +71,9 @@ public class ProductService {
         Product returnedProduct = this.productRepository.findById(idProduct)
             .orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
 
-        if(product.getQuantity() < 0){
-            throw new ProductCanNotBeLessThanZeroException("The quantity of the product can not be less than zero!");
-        }
-    
-            
-        if(product.getPrice() < 0){
-            throw new ProductCanNotBeLessThanZeroException("The price of the product can not be less than zero!");
-        }
+        validateProductFields(product);
 
-        if(product.getName() != null || product.getName() != ""){
+        if (StringUtils.isNotBlank(product.getName())) {
             returnedProduct.setName(product.getName());
         }
         
@@ -105,6 +90,16 @@ public class ProductService {
         }
         
         return this.productRepository.save(returnedProduct);
+    }
+
+    private void validateProductFields(Product product) {
+        if (product.getQuantity() < 0) {
+            throw new ProductCanNotBeLessThanZeroException("The quantity of the product can not be less than zero!");
+        }
+
+        if (product.getPrice() < 0) {
+            throw new ProductCanNotBeLessThanZeroException("The price of the product can not be less than zero!");
+        }
     }
 
     public Message deleteProduct(Long idProduct){
