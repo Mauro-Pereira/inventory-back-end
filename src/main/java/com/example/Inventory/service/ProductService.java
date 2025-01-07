@@ -32,31 +32,6 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
-    public Product increaseQuantity(Product product){
-        Product returnedProduct = this.productRepository.findById(product.getId())
-                        .orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
-        returnedProduct.setQuantity(returnedProduct.getQuantity() < 0 ? 0 + 1: returnedProduct.getQuantity() + 1);
-        return returnedProduct;
-    }
-
-    public Product decreaseQuantity(Product product){
-        Product returnedProduct = this.productRepository.findById(product.getId())
-        .orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
-
-        if(returnedProduct.getQuantity() < 0){
-            throw new ProductCanNotBeLessThanZeroException("Produc can not be less than zero");
-        }
-
-        if(returnedProduct.getQuantity() <= 0){
-            returnedProduct.setQuantity(0);
-            return returnedProduct;
-        }
-
-        Integer quantity = returnedProduct.getQuantity() - 1;
-        returnedProduct.setQuantity(quantity);
-        return returnedProduct;
-    }
-
     public List<Product> listProduct(){
         return this.productRepository.findAll();
     }
