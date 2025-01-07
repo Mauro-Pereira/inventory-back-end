@@ -1,25 +1,33 @@
-FROM gradle:7.6.0-jdk17 AS build
+FROM openjdk:17
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
 
-LABEL maintainer="Mauro Pereira <mauropereira1096@gmail.com>"
+# Etapa de Build
+#FROM gradle:7.6.0-jdk17 AS build
 
-WORKDIR /app
+#LABEL maintainer="Mauro Pereira <mauropereira1096@gmail.com>"
 
-# Copiar apenas o arquivo de configuração do Gradle e baixar as dependências
-COPY build.gradle settings.gradle ./
-RUN gradle build --no-daemon || return 0
+#WORKDIR /app
 
-# Copiar o restante do código e construir o pacote
-COPY src ./src
-RUN gradle build --no-daemon
+# Copiar arquivos de configuração e baixar dependências
+#COPY build.gradle settings.gradle ./
+#RUN gradle build --no-daemon || return 0
 
-# Usar uma imagem mais enxuta para a execução
-FROM amazoncorretto:17-al2023
+# Copiar código-fonte e construir o pacote
+#COPY src ./src
+#RUN gradle build --no-daemon
 
-WORKDIR /app
+# Etapa de Execução
+#FROM amazoncorretto:17-al2023
+
+#LABEL maintainer="Mauro Pereira <mauropereira1096@gmail.com>"
+
+#WORKDIR /app
 
 # Copiar o jar construído para a imagem final
-COPY --from=build /app/build/libs/Inventory-0.0.1-SNAPSHOT.jar .
+#COPY --from=build /app/build/libs/*.jar app.jar
 
-EXPOSE 8080
+#EXPOSE 8080
 
-CMD [ "java", "-jar", "Inventory-0.0.1-SNAPSHOT.jar" ]
+#CMD ["java", "-jar", "app.jar"]

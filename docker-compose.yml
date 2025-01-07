@@ -2,26 +2,9 @@ version: '3.8'
 
 services:
   app:
-    image: /app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: inventory-app
     ports:
       - "8080:8080"
-    environment:
-      - DATABASE_HOST=db
-      - DATABASE_PORT=5432
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=1234
-      - DATABASE_NAME=inventory_db
-    depends_on:
-      - db
-
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: inventory_db
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
-volumes:
-  db_data:
