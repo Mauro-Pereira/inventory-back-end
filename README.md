@@ -43,11 +43,3 @@ For detailed API documentation, visit the Swagger UI once the application is run
 ## Contributing
 
 We welcome contributions! Please fork the repository and submit pull requests.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-Thank you for using the Inventory Management System! If you have any questions or need further assistance, please feel free to open an issue on GitHub.
