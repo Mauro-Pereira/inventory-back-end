@@ -1,6 +1,6 @@
 # Inventory Management System
 
-Welcome to the Inventory Management System! This project is a back-end service designed to manage inventory data efficiently. It leverages several powerful technologies to provide a robust and scalable solution.
+Welcome to the Inventory Management System! This project is a litle back-end service designed to manage inventory data efficiently. It leverages several powerful technologies to provide a robust and scalable solution.
 
 ## Key Features
 
